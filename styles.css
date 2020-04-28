@@ -13,8 +13,10 @@ body{
 }
 
 #img-runner{
-    position: relative;
+    position: absolute;
     left: 0;
+    top: 0;
+    transform: rotate(90deg);
 }
 
 #platform{
@@ -24,9 +26,6 @@ body{
     margin: 0;
 }
 
-.mirror-img{
-    transform: scale(-1, 1);
-}
 
 #signal{
     width:2em;
