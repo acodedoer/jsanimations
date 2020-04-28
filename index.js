@@ -1,48 +1,12 @@
-// const runningMan = () => {
-//     document.querySelector('#signal').style.backgroundColor='green'
-//     const IMAGESRC = []
-//     const img = document.getElementById('img-runner')
-//     let frame_counter = 0;
-//     const distance = window.innerWidth;
-//     let step = 5;
-//     let position = 0;
-
-//     for(let i = 0; i<8; i++){
-//         IMAGESRC[i] = `images/run${i}.svg`
-//     }
-
-//     const animateFrame = () => {
-//         if(frame_counter >= IMAGESRC.length){
-//             frame_counter = 0;
-//         }
-//         img.src = IMAGESRC[frame_counter]
-//         frame_counter+=1;
-//         setTimeout(animateFrame, 50)
-//     }
-//     const animatePosition = () => {
-//         if(position>= distance-96 || position < 0){
-//             img.classList.toggle('mirror-img')
-//             step *= -1;
-//         }
-
-//         position += step;
-//         img.style.left = position + 'px'
-//         setTimeout(animatePosition, 50)
-//     }
-
-//     animatePosition()
-//     animateFrame()
-// }
-// window.addEventListener('load', runningMan)
-
 const runningMan = () => {
     document.querySelector('#signal').style.backgroundColor='green'
     const IMAGESRC = []
     const img = document.getElementById('img-runner')
     let frame_counter = 0;
-    const distance_x = window.innerWidth-100;
-    const distance_y = window.innerHeight-100;
+    const distance_x = window.innerWidth-96;
+    const distance_y = window.innerHeight-96;
     let step = 5;
+    let rotation = 90;
     let position_y = 0;
     let position_x = 0;
 
@@ -59,57 +23,34 @@ const runningMan = () => {
         setTimeout(animateFrame, 50)
     }
 
-    const animatePosition0 = () => {
-        if(position_y>= distance_y){
-            img.style.transform = 'rotate(0deg)'
-            animatePosition1()
+    const moveHorizontally = () => {
+        position_x += step;
+        if(position_x>= distance_x || position_x<0){
+            step*=-1;
+            rotation == 0? rotation = 270 : rotation = 90
+            img.style.transform = `rotate(${rotation}deg)`
+            moveVertically()
         }
         else{
-            position_y += step;
-            img.style.top = position_y + 'px'
-            setTimeout(animatePosition0, 50)
-        }
-    }
-
-    const animatePosition1 = () => {
-        if(position_x>= distance_x){
-            step*= -1
-            img.style.transform = 'rotate(270deg)'
-            animatePosition2()
-        }
-        else{
-            position_x += step;
             img.style.left = position_x + 'px'
-            setTimeout(animatePosition1, 50)
+            setTimeout(moveHorizontally, 50)
         }
     }
 
-    const animatePosition2 = () => {
-        if(position_y<= 0){
-            img.style.transform = 'rotate(180deg)'
-            animatePosition3()
+    const moveVertically = () => {
+        position_y += step;
+        if(position_y>= distance_y || position_y< 0){
+            rotation == 90? rotation = 0 : rotation = 180
+            img.style.transform = `rotate(${rotation}deg)`
+            moveHorizontally()
         }
         else{
-            position_y += step;
             img.style.top = position_y + 'px'
-            setTimeout(animatePosition2, 50)
+            setTimeout(moveVertically, 50)
         }
     }
 
-    const animatePosition3 = () => {
-        if(position_x<= 0){
-            step*= -1
-            img.style.transform = 'rotate(90deg)'
-            animatePosition0()
-        }
-        else{
-            position_x += step;
-            img.style.left = position_x + 'px'
-            setTimeout(animatePosition3, 50)
-        }
-    }
-
-    animatePosition0()
+    moveVertically()
     animateFrame()
 }
 window.addEventListener('load', runningMan)
