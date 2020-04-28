@@ -1,11 +1,17 @@
+const readyUp = () => {
+    document.querySelector('#signal').style.backgroundColor='red'
+    setTimeout(() => document.querySelector('#signal').style.backgroundColor='orange', 500)
+    setTimeout(() => document.querySelector('#signal').style.backgroundColor='green', 1000)
+    setTimeout(runningMan, 1500)
+}
+
 const runningMan = () => {
-    document.querySelector('#signal').style.backgroundColor='green'
     const IMAGESRC = []
     const img = document.getElementById('img-runner')
     let frame_counter = 0;
     const distance_x = window.innerWidth-96;
     const distance_y = window.innerHeight-96;
-    let step = 5;
+    let step = 10;
     let rotation = 90;
     let position_y = 0;
     let position_x = 0;
@@ -20,7 +26,7 @@ const runningMan = () => {
         }
         img.src = IMAGESRC[frame_counter]
         frame_counter+=1;
-        setTimeout(animateFrame, 50)
+        setTimeout(animateFrame, 100)
     }
 
     const moveHorizontally = () => {
@@ -33,7 +39,7 @@ const runningMan = () => {
         }
         else{
             img.style.left = position_x + 'px'
-            setTimeout(moveHorizontally, 50)
+            setTimeout(moveHorizontally, 100)
         }
     }
 
@@ -46,11 +52,11 @@ const runningMan = () => {
         }
         else{
             img.style.top = position_y + 'px'
-            setTimeout(moveVertically, 50)
+            setTimeout(moveVertically, 100)
         }
     }
-
-    moveVertically()
     animateFrame()
+    moveVertically()
+    
 }
-window.addEventListener('load', runningMan)
+window.addEventListener('load', readyUp)

@@ -28,9 +28,9 @@ body{
 
 
 #signal{
-    width:2em;
-    height: 2em;
+    width:4em;
+    height: 4em;
     border: solid black 2px;
-    background-color: orange;
+    background-color: red;
     border-radius: 50%;
 }
